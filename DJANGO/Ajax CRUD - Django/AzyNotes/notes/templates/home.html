@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Azy's Notes</h2>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary mb-4" data-toggle="modal" data-target="#exampleModal">
+  Launch demo modal
+</button>
+
+{% for note in notes %}
+
+  <div class="form-group form-check">
+    {% if note.status %}
+    <input type="checkbox" checked="checked" class="form-check-input note" data-id={{note.id}}>
+    <label class="form-check-label" for="exampleCheck1" > 
+      <strike> {{note.title}}</strike>
+    </label>
+    {% else %}
+    <input type="checkbox" class="form-check-input note" data-id={{note.id}}>
+    <label class="form-check-label" for="exampleCheck1" >  {{note.title}}</label>
+    {% endif %}
+   
+  </div>
+{% endfor %}
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="" method="post" id="noteform">
+          {% csrf_token %}
+          {{form.as_p}}
+          <button type="submit" class="btn btn-primary btn-block">Submit</button>
+        </form>
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
+    </div>
+  </div>
+</div>
+
+
+{% endblock content %}
+
+{% block js %}
+<script>
+
+$(document).ready(function() {
+        $('#noteform').submit(function(e) { // catch the form's submit event
+        e.preventDefault();
+        console.log('Form submission cancelled.');
+            $.ajax({ // create an AJAX call...
+              headers: {
+                    "X-CSRFToken":document.cookie.split('=')[1],
+                    
+                },
+                data: $(this).serialize(), // get the form data
+                type: 'POST', // GET or POST
+                url: 'http://localhost:8000/', // the file to call
+                success: function(response) { // on success..
+                    // $('#DIV_CONTAINING_FORM').html(response); // update the DIV 
+                    console.log(response)
+                    $('#noteform')[0].reset();
+                    window.location = "http://localhost:8000/";
+
+                },
+                error : function(error){
+                  console.log(error);
+                }
+            });
+            return false;
+        });
+    });
+
+// const element = document.querySelector('form');
+// element.addEventListener('submit', event => {
+// event.preventDefault();
+
+// $.ajax({
+//   url : 'http://localhost:8000/',
+//   method : 'POST',
+//   success : function(data){
+//     console.log(data);
+//   },
+//   error : function(data){
+//     console.log(data);
+//   }
+// }
+// )
+//   // actual logic, e.g. validate the form
+//   console.log('Form submission cancelled.');
+// });
+  
+  </script>
+
+<script>
+   $(document).ready(function(){
+        $('input[type="checkbox"]').click(function(){
+            if($(this).is(":checked")){
+                let id = $(this)[0].dataset.id;
+                $.ajax({
+                  url : `http://localhost:8000/notes/${id}/`,
+                  type : 'GET',
+                  success : function(data){
+                    console.log(data);
+                  }
+                });
+                console.log($(this).siblings()[0],"Checkbox is checked.");
+                $(this).siblings()[0].innerHTML = `<strike>${$(this).siblings()[0].innerHTML}</strike>`
+            }
+            else if($(this).is(":not(:checked)")){
+              let id = $(this)[0].dataset.id;
+                $.ajax({
+                  url : `http://localhost:8000/notes/${id}/`,
+                  type : 'GET',
+                  success : function(data){
+                    console.log($(this),data);
+                  }
+                });
+                console.log($(this),"Checkbox is unchecked.");
+            }
+        });
+    });
+</script>
+{% endblock js %}

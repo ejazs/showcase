@@ -1,0 +1,36 @@
+Web site for food recepies
+
+
+1) Recepies : 
+  title
+  image
+  category
+  ratings
+  author
+  prep / cook time
+  difficulty
+  serves  
+  Ingrediant
+  Method
+  Tips
+
+  SAVE
+  PRINT
+
+
+  Comment
+  Comment / questions/ Tips
+
+
+Nutrition: per serving
+kcal
+fat
+saturates
+carbs
+sugarsfibre
+protein
+salt
+
+Tags
+
+Share

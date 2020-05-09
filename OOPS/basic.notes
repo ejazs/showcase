@@ -1,0 +1,25 @@
+-= OOPS in Python =-
+
+Basics:
+  1) class
+  2) object
+  3) instance variable
+  4) class variable
+  5) instance method
+  6) class method
+  7) static method
+
+[python]
+
+class Employee:
+  def __init__(self, first_name, last_name, email, salary):
+    self.first_name = first_name
+    self.last_name  = last_name
+    self.email      = email
+    self.salary     = salary
+  
+  def full_name(self):
+    return '{} {}'.format(self.first_name, self.last_name)
+
+emp1 = Employee('Max', 'Payne', 'max_p@example.com', 120)
+[end]

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{# tutorial/templates/tutorial/people.html #}
+{% load render_table from django_tables2 %}
+
+{% block page_title %}
+Project
+{% endblock page_title %}
+
+{% block page_heading %}
+<span class="float-left">Project</span>
+{% endblock page_heading %}
+
+{% block content %}
+<a href='{% url "project:project_create" %}' class="btn btn-success float-right mb-4">Create Project</a>
+<form method="get">
+  {{ filter.form }}
+  <input type="submit" class="btn btn-primary" value="Search" />
+</form>
+{% render_table table %}  
+{% endblock content %}

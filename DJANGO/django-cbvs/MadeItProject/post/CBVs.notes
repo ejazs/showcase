@@ -1,0 +1,10 @@
+Tips for Writing Class-Based Views:
+  • Stick with the defaults
+  • Don’t go crazy with multiple inheritance
+  • For authentication and other behaviors: django-braces
+  • For quick reference documentation: https://ccbv.co.uk
+  • If doing something crazy-sophisticated, drop down to a
+  basic django.views.generic.View.
+  • For more advanced views:
+  – GET/POST arguments are inside of self.kwargs
+  – You can access the request at self.request

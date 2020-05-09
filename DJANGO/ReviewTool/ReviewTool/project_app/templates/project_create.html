@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block page_title %}
+Create Project 
+{% endblock page_title %}
+
+{% block page_heading %}
+Create Project 
+{% endblock page_heading %}
+
+{% block content %}
+<!-- <form action="" method="post">
+  {% csrf_token %}
+  {{form|crispy}}
+  <button type="submit">sub</button>
+</form> -->
+{% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+{% endif %}
+
+<form action="" method="post"> {% csrf_token %}
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      {{ form.name|as_crispy_field }}
+    </div>
+
+    <div class="form-group col-md-6">
+      {{ form.business_field|as_crispy_field }}
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      {{ form.customer|as_crispy_field }}
+    </div>
+    <div class="form-group col-md-6">
+      {{ form.lead|as_crispy_field }}
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      {{ form.start_date|as_crispy_field }}
+    </div>
+    <div class="form-group col-md-6">
+      {{ form.end_date|as_crispy_field }}
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      {{ form.viewers|as_crispy_field }}
+    </div>
+    <div class="form-group col-md-6">
+      {{ form.creators|as_crispy_field }}
+    </div>
+  </div>
+
+  <div class="form-row">
+  
+    <div class="form-group col-md-12">
+      {{ form.comment|as_crispy_field }}
+    </div>
+  </div>
+  <button type="submit" class="btn btn-success">Submit</button>  
+</form>
+{% endblock content %}
+
+{% block js %}
+<script>
+  $( ".dateinput " ).datepicker();
+</script>
+   
+{% endblock js %}

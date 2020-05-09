@@ -1,0 +1,37 @@
+Topics to Cover:
+  01) CBV
+  02) Generic View 
+  03) Middlewares
+  04) Custom context processor
+  05) Signals
+  06) Proxy models
+  07) Form Validation
+  08) Model Validation
+  09) Model Manager
+  10) Model Querysets
+  11) F Querysets
+  12) Q Querysets
+  13) Custom Template filters
+  14) Custom Template Tags from django.template.TemplateLibrary() register = TemplateLibrary() @register.simple_tag / filters
+  15) Model property
+  16) Sessions
+  17) Cache
+  18) Custom Decorators
+  19) Custom Mixins
+  20) Inline Formsets
+  21) Abstract Model
+  22) Extending User Model
+  23) Content type and Generic foreign keys
+  24) Static file setup
+
+
+
+  Django stores session in django_session table 
+  It stores keys, values and expire date for session.
+  after session is closed data get deleted from It
+
+  Django stores migrations information in django_migrations table
+  it stores app, name (migration file name) and applied date times
+
+   See SQL after makemigrations
+   python manage.py sqlmigrate app_name migration_no

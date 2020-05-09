@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load blog_tags %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+{{post.title}}
+{% endblock title %}
+
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+    
+      <div class="card mt-4" >
+        <!-- <img src="..." class="card-img-top" alt="..."> -->
+        <div class="card-body">
+          <h5 class="card-title">{{post.title}}</h5>
+          {% for tag in post.get_tags %}
+          <a href="{% url 'post:tag' %}?tag={{tag}}">{{tag}}</a> 
+          {% endfor %}  <hr>
+          <small class="mt-2">
+            <a href="{% url 'post:update' post.slug %}" class="btn btn-primary">Edit</a>
+            <a href="{% url 'post:share' post.slug %}" class="btn btn-primary">Share</a>
+          </small>
+          <p class="card-text">{{post.body|markdown}}</p>
+        </div>
+      </div>
+      
+      <hr class="mt-4">
+      {% for comment in page_obj %}
+      <div class="media">
+        <div class="media-body">
+          {{comment.body}}
+          <small>By {{comment.name}}</small>
+        </div>
+      </div>
+      {% endfor %}
+      {% include 'pagination.html' %}
+      <hr>
+      <form action="" method="post" class="mt-4 mb-4"> {% csrf_token %}
+        {{form|crispy}}
+        <button type="submit" class="btn btn-primary">Comment</button>
+      </form>
+        </div>
+      <div class="col-md-4 mt-4">
+        <h3>Related Posts</h3>
+      </div>
+  </div>
+</div>
+
+{% endblock content %}
